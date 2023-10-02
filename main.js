@@ -3,6 +3,35 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+// Get DOM elements
+const heart = document.getElementById('heart');
+const errorModal = document.getElementById('error-modal');
+
+// Event listener for clicking the heart icon
+heart.addEventListener('click', () => {
+    mimicServerCall()
+        .then(() => {
+            // Simulated server success response
+            heart.classList.remove('empty-heart');
+            heart.classList.add('full-heart', 'activated-heart');
+        })
+        .catch(() => {
+            // server error response
+            errorModal.classList.remove('hidden');
+            setTimeout(() => {
+                errorModal.classList.add('hidden');
+            }, 3000); // Hides the error modal after 3 seconds
+        });
+});
+
+// Event listener for clicking the full heart
+heart.addEventListener('click', () => {
+    if (heart.classList.contains('full-heart')) {
+        // User clicked on a full heart, so change it back to empty
+        heart.classList.remove('full-heart', 'activated-heart');
+        heart.classList.add('empty-heart');
+    }
+});
 
 
 
